@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vietnam Airlines NEO - Thất lạc hành lý</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --blue: #1d4ed8;
+      --teal: #0f766e;
+      --red: #b91c1c;
+      --green: #15803d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: radial-gradient(circle at top left, rgba(29,78,216,.12), transparent 32%), var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    main { width: min(980px, calc(100% - 36px)); margin: 0 auto; padding: 46px 0 70px; }
+    h1 { font-size: clamp(34px, 6vw, 62px); line-height: 1; letter-spacing: -0.05em; margin: 0 0 20px; }
+    h2 { margin-top: 42px; font-size: 32px; letter-spacing: -0.03em; border-top: 1px solid var(--line); padding-top: 28px; }
+    h3 { margin-top: 26px; font-size: 22px; }
+    p, li { color: var(--muted); font-size: 16px; }
+    strong { color: var(--text); }
+    blockquote {
+      margin: 14px 0;
+      padding: 16px 18px;
+      border-left: 5px solid var(--blue);
+      background: #fff;
+      border-radius: 14px;
+      color: #374151;
+      box-shadow: 0 8px 22px rgba(17,24,39,.04);
+    }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+    ul { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px 22px 18px 38px; box-shadow: 0 8px 22px rgba(17,24,39,.04); }
+    .badge { display: inline-block; padding: 8px 12px; border-radius: 999px; background: #dbeafe; color: var(--blue); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 18px; }
+    .summary { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 22px; box-shadow: 0 18px 40px rgba(17,24,39,.08); margin: 20px 0 32px; }
+    @media print { body { background: #fff; } main { width: 100%; padding: 20px; } ul, blockquote, .summary { box-shadow: none; } }
+  </style>
+</head>
+<body>
+<main>
+  <div class="badge">Workshop cá nhân · AI Product Analysis</div>
+  <div class="summary">
+    <strong>Main insight:</strong> NEO trả lời đúng thông tin cơ bản, nhưng cần chuyển từ FAQ một chiều sang guided support flow cho tình huống thất lạc hành lý.
+  </div>
+  <h1>Vietnam Airlines NEO: từ FAQ thất lạc hành lý sang guided support flow</h1>
+
+<h2>1. Main insight</h2>
+
+<p>NEO không trả lời sai, nhưng câu trả lời vẫn thiên về <strong>FAQ một chiều</strong>. Trong tình huống thất lạc hành lý, người dùng thường đang lo lắng và cần được dẫn từng bước theo hoàn cảnh cụ thể, không chỉ cần đọc hướng dẫn chung.</p>
+
+<p><strong>Insight chính:</strong></p>
+
+<blockquote>NEO trả lời đúng thông tin cơ bản, nhưng chưa đủ “actionable”. Bot cần chuyển từ dạng FAQ sang dạng guided flow: hỏi tình trạng hiện tại của khách, thu thập thông tin cần thiết, rồi đưa hành động tiếp theo rõ ràng.</blockquote>
+
+<hr>
+
+<h2>2. Bằng chứng từ đoạn chat</h2>
+
+<p><strong>User hỏi:</strong></p>
+
+<blockquote>Tôi bị thất lạc hành lý sau chuyến bay, giờ tôi phải làm gì?</blockquote>
+
+<p><strong>NEO trả lời:</strong></p>
+
+<blockquote>Khi phát hiện hành lý bị thất lạc, quý khách vui lòng liên hệ ngay với nhân viên của Vietnam Airlines tại quầy hành lý thất lạc ở sân bay đến để xác lập biên bản bất thường về hành lý PIR.  </blockquote>
+<blockquote>Sau khi đã khai báo thông tin tại quầy, quý khách truy cập trang WorldTracer để tra cứu thông tin và cập nhật địa chỉ nhận hành lý theo điểm đến trong hành trình.</blockquote>
+
+<p><strong>Đánh giá:</strong></p>
+
+<p>Câu trả lời này đúng ở mức cơ bản vì có nhắc đến:</p>
+
+<ul>
+<li>Quầy hành lý thất lạc tại sân bay.</li>
+<li>Biên bản bất thường hành lý **PIR**.</li>
+<li>Trang **WorldTracer** để tra cứu hành lý.</li>
+</ul>
+
+<p>Nhưng bot chưa hỏi tiếp các thông tin quan trọng như:</p>
+
+<ul>
+<li>Khách còn ở sân bay hay đã rời sân bay?</li>
+<li>Khách có thẻ hành lý không?</li>
+<li>Hành lý bị thất lạc hoàn toàn, đến trễ, hay bị hư hỏng?</li>
+<li>Khách muốn tra cứu hành lý hay muốn khiếu nại/bồi thường?</li>
+<li>Khách cần chuẩn bị giấy tờ gì?</li>
+</ul>
+
+<hr>
+
+<h2>3. As-is flow</h2>
+
+<h3>Current journey</h3>
+
+<p>1. <strong>User phát hiện thất lạc hành lý</strong>  </p>
+<p>   User hỏi NEO: “Tôi bị thất lạc hành lý sau chuyến bay, giờ tôi phải làm gì?”</p>
+
+<p>2. <strong>NEO trả lời hướng dẫn chung</strong>  </p>
+<p>   Bot yêu cầu khách liên hệ quầy hành lý thất lạc, lập PIR và dùng WorldTracer.</p>
+
+<p>3. <strong>User vẫn có thể bị kẹt</strong>  </p>
+<p>   Nếu user đã rời sân bay, không biết quầy ở đâu, không biết cần giấy tờ gì, hoặc không biết mã nào để tra cứu WorldTracer, user vẫn chưa có hành động rõ ràng tiếp theo.</p>
+
+<p>4. <strong>Khả năng phải chuyển sang tổng đài/nhân viên</strong>  </p>
+<p>   Vì bot chưa phân nhánh theo tình huống, user có thể phải tự tìm kênh hỗ trợ khác.</p>
+
+<p><strong>Break point:</strong></p>
+
+<blockquote>NEO đang trả lời theo kiểu “information-first”, trong khi tình huống thất lạc hành lý cần “action-first”.</blockquote>
+
+<hr>
+
+<h2>4. Path yếu nhất</h2>
+
+<p><strong>Path yếu:</strong> Khách đã rời sân bay nhưng mới phát hiện hoặc chưa kịp lập PIR.</p>
+
+<p>Đây là path yếu vì câu trả lời hiện tại giả định rằng khách vẫn còn ở sân bay và có thể đến ngay quầy hành lý thất lạc.</p>
+
+<p><strong>Vấn đề:</strong></p>
+
+<p>Nếu khách hỏi:</p>
+
+<blockquote>Tôi đã rời sân bay rồi mới biết bị thất lạc hành lý, giờ làm sao?</blockquote>
+
+<p>NEO cần có flow riêng, nhưng câu trả lời hiện tại chưa thể hiện rõ:</p>
+
+<ul>
+<li>Có còn lập PIR được không?</li>
+<li>Liên hệ qua kênh nào?</li>
+<li>Cần cung cấp thông tin gì?</li>
+<li>Có thời hạn xử lý/khiếu nại không?</li>
+<li>Làm sao theo dõi trạng thái hành lý?</li>
+</ul>
+
+<hr>
+
+<h2>5. To-be flow</h2>
+
+<h3>Recommended journey: Guided baggage support flow</h3>
+
+<p>1. <strong>Nhận diện intent</strong>  </p>
+<p>   User nói: “thất lạc hành lý”, “mất hành lý”, “không thấy vali”, “hành lý chưa đến”.</p>
+
+<p>2. <strong>Bot hỏi tình trạng hiện tại</strong>  </p>
+<p>   NEO hỏi:</p>
+
+<p>   &gt; Rất tiếc vì sự bất tiện này. Quý khách hiện còn ở sân bay không?</p>
+
+<p>   Quick buttons:</p>
+<p>   - Tôi còn ở sân bay</p>
+<p>   - Tôi đã rời sân bay</p>
+<p>   - Tôi muốn tra cứu hành lý</p>
+<p>   - Tôi muốn yêu cầu bồi thường</p>
+<p>   - Tôi cần gặp nhân viên hỗ trợ</p>
+
+<p>3. <strong>Phân nhánh theo tình huống</strong></p>
+
+<p>   <strong>Nếu khách còn ở sân bay:</strong>  </p>
+<p>   Bot hướng dẫn đến quầy Lost &amp; Found/Vietnam Airlines để lập PIR, chuẩn bị boarding pass, thẻ hành lý và giấy tờ tùy thân.</p>
+
+<p>   <strong>Nếu khách đã rời sân bay:</strong>  </p>
+<p>   Bot hướng dẫn liên hệ tổng đài/văn phòng Vietnam Airlines, cung cấp mã đặt chỗ, số hiệu chuyến bay, thẻ hành lý, mô tả hành lý và thông tin liên hệ.</p>
+
+<p>   <strong>Nếu khách muốn tra cứu:</strong>  </p>
+<p>   Bot hỏi mã PIR hoặc hướng dẫn dùng WorldTracer.</p>
+
+<p>   <strong>Nếu khách muốn bồi thường:</strong>  </p>
+<p>   Bot giải thích rằng bồi thường phụ thuộc tình trạng xử lý, thời gian thất lạc, quy định hành lý và hồ sơ khiếu nại.</p>
+
+<p>4. <strong>Đưa hành động tiếp theo rõ ràng</strong>  </p>
+<p>   Bot hiển thị:</p>
+<p>   - Nút “Tra cứu WorldTracer”</p>
+<p>   - Nút “Liên hệ Vietnam Airlines”</p>
+<p>   - Nút “Danh sách giấy tờ cần chuẩn bị”</p>
+<p>   - Nút “Gặp nhân viên hỗ trợ”</p>
+
+<hr>
+
+<h2>6. Product decision</h2>
+
+<p><strong>Product decision:</strong></p>
+
+<blockquote>Ưu tiên cải thiện flow “thất lạc hành lý” bằng cách chuyển từ câu trả lời FAQ sang guided support flow. NEO cần hỏi tình trạng hiện tại của khách, phân nhánh theo việc khách còn ở sân bay hay đã rời sân bay, sau đó đưa hành động tiếp theo rõ ràng như lập PIR, tra cứu WorldTracer, chuẩn bị giấy tờ hoặc liên hệ nhân viên.</blockquote>
+
+<p><strong>Lý do ưu tiên:</strong></p>
+
+<ul>
+<li>Đây là tình huống có cảm xúc tiêu cực cao.</li>
+<li>Người dùng cần xử lý ngay, không muốn đọc hướng dẫn chung.</li>
+<li>Sai hoặc thiếu hướng dẫn có thể làm khách mất thời gian, bỏ lỡ bước lập hồ sơ.</li>
+<li>Flow này có thể cải thiện trải nghiệm sau chuyến bay và giảm tải cho tổng đài.</li>
+</ul>
+
+<hr>
+
+<h2>7. NEO response template đề xuất</h2>
+
+<p>Có thể viết lại câu trả lời của NEO như sau:</p>
+
+<blockquote>Rất tiếc vì hành lý của Quý khách bị thất lạc. Để hỗ trợ đúng tình huống, Quý khách hiện còn ở sân bay không ạ?  </blockquote>
+<blockquote> </blockquote>
+<blockquote>Nếu còn ở sân bay, Quý khách vui lòng đến quầy hành lý thất lạc/Lost &amp; Found của Vietnam Airlines tại sân bay đến để lập biên bản bất thường hành lý PIR. Quý khách nên chuẩn bị thẻ hành lý, boarding pass hoặc vé máy bay và giấy tờ tùy thân.  </blockquote>
+<blockquote> </blockquote>
+<blockquote>Nếu đã rời sân bay, Quý khách có thể liên hệ kênh hỗ trợ của Vietnam Airlines và cung cấp mã đặt chỗ, số hiệu chuyến bay, thẻ hành lý, mô tả hành lý và thông tin liên hệ.  </blockquote>
+<blockquote> </blockquote>
+<blockquote>Quý khách muốn NEO hỗ trợ theo hướng nào tiếp theo: tra cứu hành lý, chuẩn bị giấy tờ, liên hệ hỗ trợ, hay tìm hiểu chính sách bồi thường?</blockquote>
+
+<hr>
+
+<h2>8. Output ngắn để nộp bài</h2>
+
+<p><strong>As-is:</strong>  </p>
+<p>NEO trả lời đúng thông tin cơ bản khi user hỏi về thất lạc hành lý: liên hệ quầy hành lý thất lạc, lập PIR và dùng WorldTracer để tra cứu. Tuy nhiên, câu trả lời vẫn là dạng FAQ chung, chưa hỏi tình huống cụ thể của khách nên user vẫn có thể bị kẹt nếu đã rời sân bay, không có mã PIR, không biết cần giấy tờ gì hoặc muốn hỏi về bồi thường.</p>
+
+<p><strong>To-be:</strong>  </p>
+<p>NEO cần chuyển sang guided flow cho tình huống thất lạc hành lý. Bot nên hỏi trước: “Quý khách còn ở sân bay không?”, sau đó phân nhánh thành các lựa chọn như “Tôi còn ở sân bay”, “Tôi đã rời sân bay”, “Tôi muốn tra cứu hành lý”, “Tôi muốn yêu cầu bồi thường”. Mỗi nhánh cần đưa checklist giấy tờ và hành động tiếp theo rõ ràng.</p>
+
+<p><strong>Product decision:</strong>  </p>
+<p>Bổ sung flow “Hỗ trợ thất lạc hành lý” trong NEO với quick buttons và hướng dẫn theo từng tình huống. Đây là path nên ưu tiên vì người dùng đang trong trạng thái lo lắng, cần hành động nhanh và chính xác, không chỉ cần thông tin chung.</p>
+</main>
+</body>
+</html>
