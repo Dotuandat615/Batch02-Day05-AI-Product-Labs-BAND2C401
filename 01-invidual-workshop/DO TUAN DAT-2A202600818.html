@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Cá Nhân | Phân tích Vietnam Airlines NEO</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --blue: #1d4ed8;
+      --blue-2: #dbeafe;
+      --teal: #0f766e;
+      --teal-2: #ccfbf1;
+      --red: #b91c1c;
+      --red-2: #fee2e2;
+      --amber: #b45309;
+      --amber-2: #fef3c7;
+      --green: #15803d;
+      --green-2: #dcfce7;
+      --shadow: 0 18px 40px rgba(17, 24, 39, 0.08);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(29, 78, 216, 0.13), transparent 35%),
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 54px 0 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--blue);
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      font-size: 12px;
+      box-shadow: 0 8px 20px rgba(17, 24, 39, 0.05);
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--blue);
+      box-shadow: 0 0 0 5px rgba(29, 78, 216, 0.12);
+    }
+
+    h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(34px, 6vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      max-width: 980px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 18px;
+      margin: 18px 0 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      margin-top: 26px;
+      align-items: stretch;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .diagnosis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .mini {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .mini b {
+      display: block;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 7px;
+    }
+
+    .mini span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .score-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+    }
+
+    .score {
+      font-size: 58px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: var(--red);
+    }
+
+    .score-label {
+      margin-top: 10px;
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .score-desc {
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(245, 247, 251, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+    }
+
+    .nav-inner {
+      display: flex;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 12px 0;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+      white-space: nowrap;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--blue);
+      border-color: rgba(29, 78, 216, 0.28);
+      background: var(--blue-2);
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 10px 26px rgba(17, 24, 39, 0.05);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .tag.red { background: var(--red-2); color: var(--red); }
+    .tag.green { background: var(--green-2); color: var(--green); }
+    .tag.blue { background: var(--blue-2); color: var(--blue); }
+    .tag.amber { background: var(--amber-2); color: var(--amber); }
+    .tag.teal { background: var(--teal-2); color: var(--teal); }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(17, 24, 39, 0.08);
+      border-color: rgba(29, 78, 216, 0.22);
+    }
+
+    .num {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--blue-2);
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .arrow {
+      color: var(--muted);
+      font-size: 24px;
+      padding-right: 5px;
+    }
+
+    .step strong {
+      display: block;
+    }
+
+    .step small {
+      color: var(--muted);
+    }
+
+    .bad .num { background: var(--red-2); color: var(--red); }
+    .good .num { background: var(--green-2); color: var(--green); }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn,
+    .copy-btn,
+    .toggle-btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .tab-btn:hover,
+    .copy-btn:hover,
+    .toggle-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(29, 78, 216, 0.35);
+      color: var(--blue);
+      background: var(--blue-2);
+    }
+
+    .tab-btn.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fade .25s ease both;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quote {
+      border-left: 5px solid var(--blue);
+      background: #f8fafc;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: #374151;
+      margin: 12px 0;
+    }
+
+    .quote b {
+      color: var(--text);
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .compare .card:first-child {
+      border-top: 5px solid var(--red);
+    }
+
+    .compare .card:last-child {
+      border-top: 5px solid var(--green);
+    }
+
+    .decision {
+      background:
+        linear-gradient(135deg, rgba(29,78,216,.96), rgba(15,118,110,.96)),
+        var(--blue);
+      color: #fff;
+      border: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .decision::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      right: -80px;
+      top: -90px;
+    }
+
+    .decision p,
+    .decision li {
+      color: rgba(255,255,255,.86);
+    }
+
+    .decision .tag {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 12px;
+    }
+
+    .acc-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .acc-head {
+      width: 100%;
+      border: 0;
+      background: #fff;
+      padding: 16px 18px;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .acc-head span {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .25s ease;
+      border-top: 1px solid transparent;
+    }
+
+    .acc-body-inner {
+      padding: 0 18px 18px;
+      color: var(--muted);
+    }
+
+    .acc-item.open .acc-body {
+      max-height: 420px;
+      border-top-color: var(--line);
+    }
+
+    .persona {
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 74px;
+      height: 74px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--blue-2), var(--teal-2));
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+    }
+
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .kpi-box {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .kpi-box b {
+      display: block;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+      color: var(--blue);
+    }
+
+    .kpi-box span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+    }
+
+    .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--green-2);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      margin-top: 2px;
+    }
+
+    .footer {
+      padding: 34px 0 54px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: var(--text);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 14px;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: .2s ease;
+      z-index: 60;
+      box-shadow: var(--shadow);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .grid-2,
+      .grid-3,
+      .compare,
+      .diagnosis,
+      .kpi {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .step {
+        grid-template-columns: 44px 1fr;
+      }
+
+      .arrow {
+        display: none;
+      }
+    }
+
+    @media print {
+      .nav, .tabs, .copy-btn, .toggle-btn, .toast { display: none; }
+      body { background: #fff; }
+      .card, .hero-card { box-shadow: none; break-inside: avoid; }
+      section { padding: 20px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero container" id="top">
+    <div class="eyebrow"><span class="dot"></span> Workshop cá nhân · AI Product Analysis</div>
+    <h1>Vietnam Airlines NEO: từ chatbot đặt vé sang trợ lý tìm vé rẻ linh hoạt</h1>
+    <p>
+      Bản phân tích tập trung vào một path yếu nhất trong trải nghiệm: người dùng muốn
+      “đi đâu/ngày nào cũng được miễn rẻ”, nhưng NEO vẫn ép đi theo form đặt vé cố định.
+    </p>
+
+    <div class="hero-grid">
+      <div class="hero-card">
+        <div class="tag blue">Main insight</div>
+        <h3>NEO không thất bại ở việc trả lời, mà thất bại ở việc hiểu đúng mode của người dùng.</h3>
+        <p>
+          Khi người dùng nói “mua vé rẻ đi bất cứ đâu”, intent thật không phải là
+          “đặt vé cụ thể”, mà là “khám phá lựa chọn rẻ nhất”.
+        </p>
+
+        <div class="diagnosis">
+          <div class="mini">
+            <b>As-is</b>
+            <span>Bot yêu cầu đủ điểm đến, ngày đi, ngày về.</span>
+          </div>
+          <div class="mini">
+            <b>Break point</b>
+            <span>User linh hoạt nhưng bot xử lý như form cố định.</span>
+          </div>
+          <div class="mini">
+            <b>To-be</b>
+            <span>Thêm chế độ “Tìm vé rẻ linh hoạt”.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card score-box">
+        <div class="tag red">Pain score</div>
+        <div class="score">8/10</div>
+        <div class="score-label">Cản trở ý định mua thật</div>
+        <div class="score-desc">
+          Người dùng đã có nhu cầu mua, nhưng bị buộc tự chọn điểm đến/ngày thay vì được hỗ trợ khám phá giá rẻ.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#overview">Tổng quan</a>
+      <a href="#evidence">Bằng chứng chat</a>
+      <a href="#asis">As-is flow</a>
+      <a href="#tobe">To-be flow</a>
+      <a href="#decision">Product decision</a>
+      <a href="#output">Output nộp bài</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="container" id="overview">
+      <div class="section-title">
+        <h2>1. Tổng quan vấn đề</h2>
+        <p>Đây là một case tốt vì lỗi không nằm ở bug kỹ thuật, mà nằm ở thiết kế flow và nhận diện intent.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="tag blue">Promise</div>
+          <h3>NEO là trợ lý hỗ trợ dịch vụ bay</h3>
+          <p>
+            NEO hỗ trợ mua vé, hành lý, hoàn vé, thủ tục và các thông tin liên quan đến Vietnam Airlines.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="tag amber">User expectation</div>
+          <h3>Tìm option rẻ nhất</h3>
+          <p>
+            User không có điểm đến/ngày cố định. Họ muốn bot gợi ý theo giá, ngân sách và độ linh hoạt.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="tag red">Reality</div>
+          <h3>Bot vẫn bắt nhập form</h3>
+          <p>
+            NEO yêu cầu điểm đến, ngày đi và ngày về cụ thể trước khi có thể đưa kết quả.
+          </p>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-box">
+          <b>1</b>
+          <span>Path yếu cần sửa</span>
+        </div>
+        <div class="kpi-box">
+          <b>3</b>
+          <span>Thông tin cần hỏi lại tối thiểu</span>
+        </div>
+        <div class="kpi-box">
+          <b>4</b>
+          <span>Quick buttons đề xuất</span>
+        </div>
+        <div class="kpi-box">
+          <b>48h</b>
+          <span>Không áp dụng ở đây, chỉ focus flow vé rẻ</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="evidence">
+      <div class="section-title">
+        <h2>2. Bằng chứng từ đoạn chat</h2>
+        <p>Bấm từng mục để xem phần hội thoại thể hiện điểm gãy.</p>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-item open">
+          <button class="acc-head">
+            User bắt đầu bằng nhu cầu mơ hồ nhưng có ý định mua
+            <span>Click để mở/đóng</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="quote"><b>User:</b> “Mua vé rẻ đi bất cứ đâu?”</div>
+              <div class="quote"><b>NEO:</b> Yêu cầu cung cấp loại vé, điểm khởi hành, điểm đến, ngày đi, ngày về, số lượng hành khách, hạng vé.</div>
+              <p>
+                Đây là điểm đầu tiên cho thấy bot chuyển thẳng sang form đặt vé, chưa hỏi lại theo kiểu “linh hoạt về điểm đến/ngày bay”.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">
+            User đã nói rõ “bất cứ đâu miễn là rẻ”
+            <span>Click để mở/đóng</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="quote">
+                <b>User:</b> “Khứ hồi điểm khởi hành: Hà Nội, điểm đến bất cứ đâu miễn là rẻ,
+                ngày đi và về không phụ thuộc, số lượng 1 người lớn, bất kỳ hạng vé nào miễn là rẻ.”
+              </div>
+              <div class="quote">
+                <b>NEO:</b> Đã thu thập loại vé, điểm khởi hành, số khách, hạng vé; vẫn yêu cầu điểm đến, ngày đi, ngày về.
+              </div>
+              <p>
+                NEO có trích xuất được một phần thông tin, nhưng không đổi strategy sang “flexible search”.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">
+            User tiếp tục nhấn mạnh chỉ cần ngày rẻ nhất
+            <span>Click để mở/đóng</span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <div class="quote"><b>User:</b> “Melbourne, tôi chỉ cần đi ngày nào mà giá vé rẻ nhất thôi.”</div>
+              <div class="quote"><b>NEO:</b> Vẫn yêu cầu ngày đi và ngày về.</div>
+              <p>
+                Đây là điểm gãy rõ nhất: user muốn bot tìm ngày rẻ, nhưng bot yêu cầu user tự cung cấp ngày.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="asis">
+      <div class="section-title">
+        <h2>3. As-is flow</h2>
+        <p>Flow hiện tại giải quyết được đặt vé cố định, nhưng yếu khi user muốn khám phá vé rẻ.</p>
+      </div>
+
+      <div class="card">
+        <div class="tag red">Current journey</div>
+        <div class="flow">
+          <div class="step bad">
+            <div class="num">1</div>
+            <div>
+              <strong>User muốn mua vé rẻ linh hoạt</strong>
+              <small>“Đi đâu cũng được miễn rẻ, ngày nào cũng được miễn rẻ.”</small>
+            </div>
+            <div class="arrow">↓</div>
+          </div>
+          <div class="step bad">
+            <div class="num">2</div>
+            <div>
+              <strong>NEO yêu cầu đủ form đặt vé</strong>
+              <small>Loại vé, điểm đi, điểm đến, ngày đi, ngày về, số khách, hạng vé.</small>
+            </div>
+            <div class="arrow">↓</div>
+          </div>
+          <div class="step bad">
+            <div class="num">3</div>
+            <div>
+              <strong>User phải tự chọn điểm đến/ngày</strong>
+              <small>Melbourne, 12/12/2026 và 24/12/2026.</small>
+            </div>
+            <div class="arrow">↓</div>
+          </div>
+          <div class="step bad">
+            <div class="num">4</div>
+            <div>
+              <strong>NEO trả kết quả cho ngày cố định</strong>
+              <small>Bot trả giá vé, nhưng không giải quyết đúng nhu cầu “tìm ngày rẻ nhất”.</small>
+            </div>
+            <div class="arrow">×</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="tobe">
+      <div class="section-title">
+        <h2>4. To-be flow</h2>
+        <p>Thiết kế lại theo hướng nhận diện “flexible cheap flight search”.</p>
+      </div>
+
+      <div class="compare">
+        <div class="card">
+          <div class="tag red">Trước</div>
+          <h3>Form-first</h3>
+          <ul>
+            <li>Bắt buộc có điểm đến cụ thể.</li>
+            <li>Bắt buộc có ngày đi/ngày về.</li>
+            <li>Không gợi ý điểm đến rẻ.</li>
+            <li>Không gợi ý ngày rẻ quanh khoảng thời gian.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag green">Sau</div>
+          <h3>Intent-first</h3>
+          <ul>
+            <li>Nhận diện nhu cầu “vé rẻ linh hoạt”.</li>
+            <li>Hỏi lại tối thiểu: điểm đi, khoảng thời gian, ngân sách/khu vực.</li>
+            <li>Đưa quick buttons để user chọn nhanh.</li>
+            <li>Sau khi user chọn option mới chuyển sang form đặt vé.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <div class="tag green">Recommended journey</div>
+        <div class="flow">
+          <div class="step good">
+            <div class="num">1</div>
+            <div>
+              <strong>Nhận diện intent</strong>
+              <small>User nói: “vé rẻ nhất”, “bất cứ đâu”, “ngày nào cũng được”.</small>
+            </div>
+            <div class="arrow">↓</div>
+          </div>
+          <div class="step good">
+            <div class="num">2</div>
+            <div>
+              <strong>Hỏi lại 2–3 thông tin tối thiểu</strong>
+              <small>Điểm khởi hành, khoảng thời gian có thể đi, ngân sách hoặc khu vực.</small>
+            </div>
+            <div class="arrow">↓</div>
+          </div>
+          <div class="step good">
+            <div class="num">3</div>
+            <div>
+              <strong>Đề xuất option rẻ</strong>
+              <small>Rẻ nhất theo tháng, theo khu vực, theo điểm đến, hoặc ±7 ngày.</small>
+            </div>
+            <div class="arrow">↓</div>
+          </div>
+          <div class="step good">
+            <div class="num">4</div>
+            <div>
+              <strong>Chốt option và đặt vé</strong>
+              <small>Khi user chọn option, NEO mới chuyển sang flow đặt vé cụ thể.</small>
+            </div>
+            <div class="arrow">✓</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="decision">
+      <div class="section-title">
+        <h2>5. Product decision</h2>
+        <p>Quyết định sản phẩm cần rõ, nhỏ, và có thể triển khai vào flow hiện tại.</p>
+      </div>
+
+      <div class="card decision">
+        <div class="tag">Decision</div>
+        <h3>Thêm chế độ “Tìm vé rẻ linh hoạt” trong NEO</h3>
+        <p>
+          Khi user dùng các cụm như “vé rẻ nhất”, “đi đâu cũng được”, “ngày nào cũng được”,
+          “miễn là rẻ”, NEO không nên ép vào form đặt vé cố định. Thay vào đó, bot chuyển sang
+          flow khám phá giá vé linh hoạt.
+        </p>
+
+        <div class="chips">
+          <span class="chip">Rẻ nhất trong tháng này</span>
+          <span class="chip">Rẻ nhất đến Úc</span>
+          <span class="chip">Rẻ nhất ±7 ngày</span>
+          <span class="chip">Ngân sách dưới X triệu</span>
+          <span class="chip">Điểm đến bất kỳ</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:18px;">
+        <div class="card">
+          <div class="tag teal">Trigger phrases</div>
+          <h3>Khi nào bot chuyển mode?</h3>
+          <ul class="checklist">
+            <li><span class="check">✓</span><span>“Mua vé rẻ đi bất cứ đâu”</span></li>
+            <li><span class="check">✓</span><span>“Ngày nào rẻ nhất thì đi”</span></li>
+            <li><span class="check">✓</span><span>“Điểm đến nào cũng được miễn rẻ”</span></li>
+            <li><span class="check">✓</span><span>“Tôi có ngân sách dưới 10 triệu”</span></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag blue">NEO response template</div>
+          <h3>Câu trả lời nên dùng</h3>
+          <div class="quote" id="response-template">
+            NEO hiểu Quý khách muốn tìm vé khứ hồi rẻ nhất từ Hà Nội và linh hoạt về điểm đến/ngày bay.
+            Hiện NEO có thể hỗ trợ theo 3 cách: tìm vé rẻ nhất theo khu vực, theo khoảng thời gian,
+            hoặc theo một điểm đến cụ thể. Quý khách muốn NEO tìm theo cách nào ạ?
+          </div>
+          <button class="copy-btn" data-copy-target="response-template">Copy template</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="output">
+      <div class="section-title">
+        <h2>6. Output sketch để nộp</h2>
+        <p>Phần này có thể copy trực tiếp vào bài workshop.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="short">Bản ngắn</button>
+        <button class="tab-btn" data-tab="detailed">Bản chi tiết</button>
+        <button class="tab-btn" data-tab="slide">Bản slide</button>
+      </div>
+
+      <div class="card tab-panel active" id="tab-short">
+        <div class="tag blue">Copy-ready</div>
+        <div id="copy-short">
+          <p><b>As-is:</b> NEO xử lý mua vé bằng form cố định. Khi user muốn “vé rẻ đi bất cứ đâu”, bot vẫn yêu cầu điểm đến và ngày cụ thể. Điều này làm mất đúng nhu cầu thật của user: tìm lựa chọn rẻ nhất khi ngày và điểm đến linh hoạt.</p>
+          <p><b>To-be:</b> NEO cần nhận diện intent “flexible cheap flight search”, hỏi lại tối thiểu về điểm khởi hành, khoảng thời gian hoặc ngân sách, sau đó đề xuất các option vé rẻ theo điểm đến/ngày. Khi user chọn một option, bot mới chuyển sang flow đặt vé cụ thể.</p>
+          <p><b>Product decision:</b> Bổ sung chế độ “Tìm vé rẻ linh hoạt” với quick buttons như “Rẻ nhất trong tháng này”, “Rẻ nhất đến Úc”, “Rẻ nhất ±7 ngày”, “Tôi có ngân sách dưới X triệu”.</p>
+        </div>
+        <button class="copy-btn" data-copy-target="copy-short">Copy bản ngắn</button>
+      </div>
+
+      <div class="card tab-panel" id="tab-detailed">
+        <div class="tag amber">Full explanation</div>
+        <div id="copy-detailed">
+          <p>
+            Trong đoạn chat, NEO xử lý tốt các câu ngoài phạm vi và có khả năng trích xuất thông tin đặt vé cơ bản.
+            Tuy nhiên, path yếu nhất xuất hiện khi người dùng muốn tìm “vé rẻ đi bất cứ đâu”.
+          </p>
+          <p>
+            User đã thể hiện rõ rằng điểm đến, ngày đi, ngày về và hạng vé đều có thể linh hoạt miễn là giá rẻ.
+            Nhưng NEO vẫn tiếp tục yêu cầu điểm đến và ngày cụ thể, nghĩa là bot đang coi đây là bài toán đặt vé thông thường,
+            không phải bài toán khám phá lựa chọn rẻ nhất.
+          </p>
+          <p>
+            Đề xuất sửa là thêm một intent riêng: flexible cheap flight search. Khi intent này được phát hiện,
+            NEO hỏi lại tối thiểu 2–3 thông tin như điểm khởi hành, khoảng thời gian có thể bay và ngân sách/khu vực mong muốn,
+            sau đó gợi ý các option rẻ nhất. Khi user chọn option, bot mới chuyển sang bước xác nhận và đặt vé.
+          </p>
+        </div>
+        <button class="copy-btn" data-copy-target="copy-detailed">Copy bản chi tiết</button>
+      </div>
+
+      <div class="card tab-panel" id="tab-slide">
+        <div class="tag teal">Slide format</div>
+        <div id="copy-slide">
+          <h3>Vietnam Airlines NEO — Weak Path: Flexible Cheap Flight Search</h3>
+          <ul>
+            <li><b>User goal:</b> Muốn tìm vé rẻ, linh hoạt về điểm đến và ngày bay.</li>
+            <li><b>Current issue:</b> NEO ép user nhập form đặt vé cố định.</li>
+            <li><b>Break point:</b> User nói “ngày nào cũng được miễn rẻ”, nhưng bot vẫn hỏi ngày cụ thể.</li>
+            <li><b>To-be:</b> Nhận diện intent vé rẻ linh hoạt → hỏi lại tối thiểu → đề xuất option rẻ → chuyển sang đặt vé.</li>
+            <li><b>Product decision:</b> Thêm mode “Tìm vé rẻ linh hoạt” và quick buttons.</li>
+          </ul>
+        </div>
+        <button class="copy-btn" data-copy-target="copy-slide">Copy bản slide</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <p>
+      Kết luận: NEO cần chuyển từ tư duy “form đặt vé” sang “trợ lý khám phá lựa chọn” khi người dùng thể hiện sự linh hoạt về ngày bay và điểm đến.
+    </p>
+  </footer>
+
+  <div class="toast" id="toast">Đã copy vào clipboard</div>
+
+  <script>
+    const navLinks = document.querySelectorAll('.nav a');
+    const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href')));
+
+    function updateActiveNav() {
+      const y = window.scrollY + 120;
+      let current = navLinks[0];
+      sections.forEach((section, i) => {
+        if (section && section.offsetTop <= y) current = navLinks[i];
+      });
+      navLinks.forEach(a => a.classList.remove('active'));
+      if (current) current.classList.add('active');
+    }
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
+
+    document.querySelectorAll('.acc-head').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.acc-item').classList.toggle('open');
+      });
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelector('#tab-' + tab).classList.add('active');
+      });
+    });
+
+    const toast = document.getElementById('toast');
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1700);
+    }
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const target = document.getElementById(btn.dataset.copyTarget);
+        const text = target.innerText.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast('Đã copy vào clipboard');
+        } catch (e) {
+          showToast('Không copy được, hãy chọn text thủ công');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
