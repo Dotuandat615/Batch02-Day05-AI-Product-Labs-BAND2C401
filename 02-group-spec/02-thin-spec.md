@@ -4,9 +4,9 @@ Dựa trên Insight và Opportunity từ Evidence Pack (theo hướng dẫn củ
 
 ## 1. Cơ hội (Opportunity Statement)
 
-Cơ hội là dùng AI để **augment quá trình tìm kiếm và lọc thông tin quán ăn**,
-giúp khách du lịch **chọn được quán ăn phù hợp với khẩu vị cá nhân tại địa điểm lạ một cách nhanh chóng**,
-trong khi vẫn kiểm soát **rủi ro gợi ý quán đóng cửa hoặc chất lượng quá tệ (AI hallucination/outdated data)**.
+Cơ hội là dùng AI để **augment quá trình ra quyết định chọn quán ăn**, thay thế vai trò của người địa phương biết rành khu vực — trust signal cao nhất mà khách du lịch không có —
+giúp họ **vượt qua "dining decision anxiety"**: chọn được quán phù hợp khẩu vị/ngân sách, tránh tourist trap, không tốn công đọc hàng chục review trái chiều bằng cách AI chủ động hỏi để hiểu intent thay vì chỉ lọc theo category,
+trong khi vẫn kiểm soát **rủi ro thông tin lỗi thời (quán đóng cửa, đổi địa chỉ) khiến khách mất công di chuyển và có trải nghiệm tệ làm hỏng cả chuyến đi**.
 
 ## 2. Quyết định AI (Auto/Aug decision)
 
