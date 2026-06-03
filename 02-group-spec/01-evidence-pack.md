@@ -13,19 +13,17 @@ Nhóm tự đóng vai khách du lịch dùng các app hiện tại (Google Maps,
 
 | Observation | Screenshot/link | Path liên quan | Điều học được |
 |---|---|---|---|
-| Khi tìm "quán ăn ngon" trên app, kết quả ra rất nhiều và lẫn lộn, khó biết cái nào hợp với mình | [Chèn hình] | Failure | Tìm kiếm quá chung chung khiến user bị ngợp (choice overload). |
-| Đọc review tốn nhiều thời gian, review khen chê lẫn lộn khó quyết định | [Chèn hình] | Low-confidence | User cần một sự tóm tắt nhanh chóng và đáng tin cậy hơn là tự đọc hàng chục review. |
+| Khi tìm "quán ăn ngon" trên app, kết quả ra rất nhiều và lẫn lộn, khó biết cái nào hợp với mình | ![My screenshot1](./evidence/Observation_1_Evidence.png) | Failure | Tìm kiếm quá chung chung khiến user bị ngợp (choice overload). |
+| Đọc review tốn nhiều thời gian, review khen chê lẫn lộn khó quyết định | ![My screenshot2](./evidence/Observation_2_Evidence.png) | Low-confidence | User cần một sự tóm tắt nhanh chóng và đáng tin cậy hơn là tự đọc hàng chục review. |
 
 ## 3. User / review / social evidence
 
 | Quote / review / observation | Nguồn | User là ai? | Pain/failure mode |
 |---|---|---|---|
-| "Đến Đà Lạt không biết ăn gì, lên group hỏi thì mỗi người chỉ một quán, rối càng thêm rối." | Group review du lịch | Khách du lịch tự túc | Không xác định được quán ăn phù hợp nhu cầu cá nhân giữa quá nhiều luồng thông tin. |
-| "Mở app lên tìm đồ ăn toàn ra quán quen ở nhà, không biết đặc sản địa phương ở đâu ngon." | App Store review | Khách du lịch | Thiếu tính năng cá nhân hóa theo địa điểm du lịch (context-aware). |
+| "Đọc danh sách tổng hợp trên blog du lịch thấy giới thiệu rất nhiều quán, nhưng do bài viết cũ nên lúc tới nơi quán đã đóng cửa hoặc đổi giờ mở cửa, mất công đi lại." | Phỏng vấn | bạn Giáp (Khách du lịch tự túc) | Cảm thấy hụt hẫng và lãng phí thời gian do thông tin quán ăn tĩnh (static data) không được cập nhật realtime. |
+| "Mở app Shopee/Grab tìm quán đặc sản thì thuật toán toàn ưu tiên hiển thị các chuỗi gà rán Fastfood hoặc quán chạy quảng cáo, muốn tìm đặc sản thật sự phải lướt rất lâu." | Phỏng vấn | bạn Lâm (Khách du lịch muốn khám phá ẩm thực) | App giao đồ ăn thiếu tính cá nhân hóa theo context du lịch (gợi ý chung chung). |
+| "Lên xem xếp hạng quán ăn thì thấy top đầu toàn là review tiếng Anh của khách Tây, khẩu vị và tiêu chí đánh giá của họ không hợp với người Việt mình, ăn thử thấy rất bình thường." | Phỏng vấn | bạn Đạt (Khách du lịch gia đình người Việt) | Không tin tưởng vào hệ thống rating chung, cần có một hệ thống hiểu rõ khẩu vị và preference cá nhân. |
 
-```text
-Đây là giả định ban đầu dựa trên bài toán nhóm đặt ra. Nhóm sẽ kiểm chứng bằng việc phỏng vấn nhanh 3-5 khách du lịch hoặc xem review trên các group du lịch trước checkpoint M1 Day 06.
-```
 
 ## 4. Competitor / analog evidence
 
