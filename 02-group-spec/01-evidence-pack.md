@@ -2,7 +2,7 @@
 
 ## 1. Nhóm và track
 
-**Tên nhóm:** [Điền tên nhóm]  
+**Tên nhóm:** Bàn D2 - C401  
 **Track:** Food & Local Delivery  
 **Product/app đã chọn:** Tính năng gợi ý quán ăn theo vị trí (Location-based Food Recommendation)  
 **Build slice đang nghĩ:** Cho khách du lịch đến địa điểm lạ đang tìm quán ăn, prototype dùng AI để hỏi 2-3 câu về nhu cầu cá nhân (ngân sách, khẩu vị, đi mấy người) và gợi ý 3 quán ăn phù hợp nhất gần vị trí của họ, đồng thời cho biết lý do tại sao lại gợi ý quán này.  
