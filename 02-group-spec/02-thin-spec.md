@@ -158,11 +158,11 @@ Mọi kết quả gợi ý đều kèm thông báo:
 
 | Nhiệm vụ | Người phụ trách |
 |---|---|
-| Research & Evidence (Kiểm chứng bằng chứng) | [Tên] |
-| Prompt Engineering (Thiết kế prompt cho AI Local Guide) | [Tên] |
-| Thiết kế UI/UX & Flow của Prototype | [Tên] |
-| Test 4 paths & Failure mode | [Tên] |
-| Làm slide & chuẩn bị Demo | [Tên] |
+| Research & Evidence (Kiểm chứng bằng chứng) | Nguyễn Tùng Lâm & Đỗ Phan Hà|
+| Prompt Engineering (Thiết kế prompt cho AI Local Guide) | Đàm Xuân Giáp|
+| Thiết kế UI/UX & Flow của Prototype | Đỗ Tuấn Đạt |
+| Test 4 paths & Failure mode | Hoàng Hiếu Trung |
+| Làm slide & chuẩn bị Demo | Phan Văn Hiếu |
 
 ---
 
