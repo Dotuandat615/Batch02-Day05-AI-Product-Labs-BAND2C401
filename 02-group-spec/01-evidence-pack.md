@@ -15,6 +15,7 @@ Nhóm tự đóng vai khách du lịch dùng các app hiện tại (Google Maps,
 |---|---|---|---|
 | Khi tìm "quán ăn ngon" trên app, kết quả ra rất nhiều và lẫn lộn, khó biết cái nào hợp với mình | ![My screenshot1](./evidence/Observation_1_Evidence.png) | Failure | Tìm kiếm quá chung chung khiến user bị ngợp (choice overload). |
 | Đọc review tốn nhiều thời gian, review khen chê lẫn lộn khó quyết định | ![My screenshot2](./evidence/Observation_2_Evidence.png) | Low-confidence | User cần một sự tóm tắt nhanh chóng và đáng tin cậy hơn là tự đọc hàng chục review. |
+| Tìm quán trên Google Maps khu Phố Cổ thấy rating cao và món ăn hấp dẫn, nhưng không biết không gian quán rất chật, vỉa hè hẹp, không thể ngồi được nếu đi nhóm đông người hoặc có trẻ em. | ![Observation 3](./evidence/Observation_3_Evidence.png) | High-effort / Failure | Google Maps (hay các app) thường ưu tiên show ảnh đồ ăn. Trải nghiệm phụ thuộc vào ngữ cảnh đi cùng ai (nhóm đông, có trẻ nhỏ), user cần biết thông tin này trước để tránh mất công di chuyển. |
 
 ## 3. User / review / social evidence
 
