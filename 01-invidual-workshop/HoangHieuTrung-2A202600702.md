@@ -1,3 +1,6 @@
+Mã sinh viên : 2A202600702
+Tên: Hoàng Hiếu Trung
+
 # Workshop — Mổ App AI Thật
 
 **Sản phẩm được chọn:** V-App — V-AI
