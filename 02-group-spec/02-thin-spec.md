@@ -10,9 +10,27 @@ trong khi vẫn kiểm soát **rủi ro gợi ý quán đóng cửa hoặc chấ
 
 ## 2. Quyết định AI (Auto/Aug decision)
 
-- **Phương pháp:** Augmentation (AI hỗ trợ gợi ý).
-- **AI làm gì:** AI đóng vai trò như một người dân địa phương (Local Guide), phân tích vị trí hiện tại và hỏi 2-3 câu hỏi để lọc nhu cầu (ví dụ: "Bạn muốn ăn món nước hay khô?", "Ngân sách khoảng bao nhiêu?", "Bạn có bị dị ứng gì không?"). Sau đó tổng hợp thông tin và đưa ra 3 lựa chọn tốt nhất.
-- **Human giữ quyền ở đâu:** User vẫn là người quyết định cuối cùng sẽ đi ăn ở quán nào, hoặc có thể yêu cầu AI "gợi ý các quán khác".
+Prototype nên đi theo hướng **AI Augment**: AI đóng vai trò hỗ trợ người dùng tìm kiếm, lọc và so sánh các lựa chọn quán ăn, nhưng **không tự động quyết định thay người dùng**. Trong phạm vi Day 06, hệ thống không nên để AI tự đặt món, tự đặt bàn hoặc tự chọn quán cuối cùng, vì quyết định ăn uống phụ thuộc nhiều vào khẩu vị cá nhân, ngân sách, tình trạng sức khỏe và bối cảnh thực tế tại địa điểm du lịch.
+
+- **Phương pháp:** AI Augmentation — AI hỗ trợ gợi ý, người dùng giữ quyền quyết định cuối cùng.
+- **Mức độ tự động hóa:** AI chỉ dừng ở mức tư vấn và đề xuất. Các hành động có rủi ro như đặt món, đặt bàn, gọi quán, mở chỉ đường hoặc thanh toán đều cần người dùng tự xác nhận và thực hiện.
+- **Lý do không chọn full automation:** Dữ liệu quán ăn có thể thay đổi theo thời gian thực, ví dụ quán đóng cửa, hết món, đổi giá, thay đổi giờ mở cửa hoặc chất lượng dịch vụ không ổn định. Ngoài ra, review/rating có thể bị nhiễu và không phản ánh đúng khẩu vị của từng khách du lịch. Nếu AI tự động quyết định, người dùng có thể mất thời gian di chuyển đến quán không phù hợp hoặc gặp rủi ro liên quan đến dị ứng, ăn kiêng và ngân sách.
+
+| Rủi ro | Vì sao cần human-in-the-loop | Cách prototype xử lý |
+|---|---|---|
+| Quán đóng cửa hoặc đổi giờ mở cửa | Dữ liệu bản đồ/review có thể chưa cập nhật kịp thời | AI hiển thị cảnh báo và yêu cầu user kiểm tra lại trên bản đồ trước khi đi |
+| Giá thay đổi | Giá món ăn có thể khác so với thông tin cũ | AI chỉ đưa mức giá tham khảo, không cam kết giá chính xác |
+| Review không đáng tin | Rating có thể bị nhiễu, seeding hoặc không phù hợp với nhu cầu cá nhân | AI tóm tắt cả điểm mạnh và điểm cần cân nhắc từ review |
+| Khẩu vị cá nhân khác nhau | Cùng một quán có thể hợp với người này nhưng không hợp với người khác | AI hỏi trước về món muốn ăn, khẩu vị, ngân sách và khoảng cách chấp nhận được |
+| Dị ứng hoặc ăn kiêng | Sai sót có thể ảnh hưởng trực tiếp đến sức khỏe người dùng | AI luôn hỏi về dị ứng/ăn kiêng và nhắc user xác nhận lại với quán |
+
+**Human giữ quyền ở đâu:** Người dùng giữ quyền kiểm soát ở các bước quan trọng trong flow: chọn tiêu chí ban đầu, xem danh sách gợi ý, so sánh 3 quán, chọn quán cuối cùng, bấm chỉ đường, gọi quán hoặc đặt món qua nền tảng bên ngoài. AI không được tự động thực hiện các hành động này nếu chưa có xác nhận rõ ràng từ người dùng.
+
+**AI làm gì:** AI đóng vai trò như một **Local Guide Assistant**. AI hỏi 2-3 câu để hiểu nhu cầu, ví dụ người dùng muốn ăn món gì, ngân sách bao nhiêu, đi một mình hay đi nhóm, có dị ứng hay ăn kiêng không, muốn đi bộ hay chấp nhận di chuyển xa hơn. Sau đó AI lọc các lựa chọn phù hợp, xếp hạng mức độ phù hợp, đưa ra 3 quán đề xuất kèm lý do ngắn gọn, cảnh báo nếu dữ liệu chưa chắc chắn và gợi ý phương án thay thế khi không tìm thấy quán phù hợp.
+
+**Ranh giới trách nhiệm của AI trong prototype:** AI chỉ nên đưa ra khuyến nghị có giải thích, không cam kết thông tin là tuyệt đối chính xác. Mỗi gợi ý cần có lý do rõ ràng như phù hợp ngân sách, gần vị trí hiện tại, món ăn đúng nhu cầu, review tốt hoặc phù hợp với khách du lịch. Nếu dữ liệu yếu hoặc không chắc chắn, AI phải nói rõ mức độ không chắc chắn thay vì đưa ra câu trả lời quá tự tin.
+
+**Kết luận quyết định:** Với bài toán gợi ý quán ăn theo vị trí cho khách du lịch, lựa chọn hợp lý nhất là **AI Augment, không phải AI Automate**. Cách tiếp cận này giúp prototype vẫn tạo giá trị rõ ràng là giảm thời gian tìm kiếm và ra quyết định, đồng thời giữ người dùng trong vòng kiểm soát để hạn chế rủi ro từ dữ liệu sai, thông tin lỗi thời và khác biệt khẩu vị cá nhân.
 
 ## 3. Build Slice
 
