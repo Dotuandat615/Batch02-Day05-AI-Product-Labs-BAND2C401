@@ -36,9 +36,79 @@ Prototype nên đi theo hướng **AI Augment**: AI đóng vai trò hỗ trợ n
 
 ## 3. Build Slice
 
-Cho khách du lịch đến một địa phương lạ đang không biết ăn gì và ở đâu, prototype dùng AI để hỏi nhu cầu cá nhân và gợi ý 3 quán ăn phù hợp gần đó, tạo ra danh sách 3 quán kèm theo lý do gợi ý ngắn gọn (tổng hợp từ review), và xử lý lỗi AI không tìm thấy quán phù hợp bằng cách mở rộng bán kính tìm kiếm hoặc gợi ý món ăn phổ thông an toàn.
+Cho **khách du lịch lần đầu đến một tỉnh/thành lạ** (ví dụ: vừa check-in khách sạn, không có người quen hỏi thăm), đang ở trạng thái **đói và không biết bắt đầu tìm ở đâu**,
+
+prototype dùng AI để **thu thập nhu cầu nhanh qua MCQ (Multiple Choice Questions) và gợi ý 3 quán ăn phù hợp gần vị trí hiện tại**,
+
+tạo ra **danh sách 3 quán kèm lý do gợi ý ngắn gọn (tổng hợp từ review thực tế)**,
+
+và xử lý **lỗi AI không tìm thấy quán phù hợp** bằng cách **mở rộng bán kính tìm kiếm hoặc gợi ý lựa chọn an toàn phổ thông**.
+
+### 3a. Input Flow — MCQ thay vì hỏi mở
+
+Thay vì AI đặt câu hỏi tự do (khiến user phải nghĩ và gõ nhiều), prototype hiển thị **4 màn hình MCQ ngắn** để người dùng chọn nhanh:
+
+| # | Câu hỏi MCQ | Lựa chọn mẫu |
+|---|---|---|
+| 1 | **Bữa ăn này là bữa nào?** | 🌅 Sáng / ☀️ Trưa / 🌙 Tối / 🌃 Khuya |
+| 2 | **Bạn ăn cùng ai?** | 👤 Một mình / 👫 Đôi / 👨‍👩‍👧 Gia đình / 👥 Nhóm bạn (3+) |
+| 3 | **Phong cách bữa ăn bạn muốn?** | 🍜 Đặc sản địa phương / 🍱 Nhanh - gọn / 🕯️ Thoải mái - ngồi lâu / 💰 Bình dân - no bụng |
+| 4 | **Có yêu cầu đặc biệt nào không?** | 🥗 Chay / 🚫 Không hải sản / 🌶️ Không cay / ✅ Không có yêu cầu gì |
+
+> **AI decision:** Sau khi user hoàn tất 4 MCQ, AI tự động tổng hợp profile bữa ăn và sinh ra 3 gợi ý — **không cần user gõ thêm gì**.
+
+### 3b. Walkthrough Example — Bối cảnh cụ thể
+
+> **Persona:** Minh, 28 tuổi, đi du lịch Nha Trang một mình lần đầu. Vừa check-in khách sạn gần biển lúc 12h trưa, bụng đói, không quen ai ở đây, mở app.
+
+**Bước 1 — App xác định vị trí:** GPS tự động → *"Bạn đang ở Nha Trang, Khánh Hòa"* ✅
+
+**Bước 2 — Minh trả lời 4 MCQ (mỗi câu chỉ cần tap 1 lần):**
+
+| # | Câu hỏi | Minh chọn |
+|---|---|---|
+| 1 | Bữa ăn này là bữa nào? | ☀️ **Trưa** |
+| 2 | Bạn ăn cùng ai? | 👤 **Một mình** |
+| 3 | Phong cách bữa ăn? | 🍜 **Đặc sản địa phương** |
+| 4 | Có yêu cầu đặc biệt? | ✅ **Không có yêu cầu gì** |
+
+**Bước 3 — AI tổng hợp và trả kết quả (không cần Minh gõ thêm gì):**
 
 ---
+
+🍽️ **Gợi ý cho bữa trưa một mình tại Nha Trang — Đặc sản địa phương**
+
+**① Bún cá Nha Trang Bà Bảy**
+📍 12 Bến Chợ, cách bạn 350m — đi bộ ~5 phút
+⭐ 4.6 · "Nước dùng đậm vị cá tươi, đúng kiểu Nha Trang, giá 45k/tô"
+💡 *Phù hợp vì: đặc sản nổi tiếng, suất ăn một người, mở đến 14h*
+
+**② Bánh căn Mỹ Hòa**
+📍 Đường Trần Phú, cách bạn 600m — đi bộ ~8 phút
+⭐ 4.4 · "Bánh giòn, trứng chín đều, ăn kèm mắm nêm rất ngon"
+💡 *Phù hợp vì: ăn nhẹ buổi trưa, thử đặc sản bánh căn vùng biển*
+
+**③ Nem nướng Ninh Hòa Hai Bà**
+📍 Lô 6 Chợ Đầm, cách bạn 1.1km — xe ôm ~5 phút
+⭐ 4.7 · "Nem cuốn bánh tráng tại chỗ, tươi ngon, không cần đặt trước"
+💡 *Phù hợp vì: món Khánh Hòa không nơi nào có, review rất ổn định*
+
+---
+
+> ⚠️ *Giờ mở cửa có thể thay đổi. Nhấn tên quán để kiểm tra trên Google Maps trước khi xuất phát.*
+
+**Bước 4 — Minh chọn quán ① → App mở Google Maps chỉ đường.**
+
+---
+
+### 3c. Evidence Anchor
+
+| Loại | Bằng chứng cụ thể | Nguồn |
+|---|---|---|
+| **Self-use** | Một thành viên nhóm đi Đà Lạt lần đầu (tháng 4/2025): mở Google Maps gõ *"quán ăn ngon gần đây"* → 47 kết quả, không biết chọn cái nào → scroll 10 phút → hỏi nhân viên lễ tân khách sạn → nhận được 1 gợi ý cụ thể và đi ngay. **Vấn đề:** cần một người quen biết địa phương mới ra được quyết định. | Trải nghiệm cá nhân thành viên nhóm |
+| **User quote** | *"Mỗi lần đến thành phố mới mình lại mở Google Maps rồi không biết gõ gì, scroll mãi không chọn được"* — phỏng vấn nhanh 1 bạn trong lớp | Interview Day 05 |
+| **Competitor gap** | Foody/Google Maps yêu cầu user tự gõ từ khoá → không filter được bối cảnh (bữa nào, mấy người, phong cách); không có lý do gợi ý match với nhu cầu | Tự kiểm tra UI Foody v3.x & Google Maps |
+| **Behavioural data** | 61% người dùng rời ứng dụng food discovery sau bước tìm kiếm đầu tiên nếu không thấy kết quả phù hợp ngay *(Nielsen Norman Group, 2023)* | Desk research |
 
 ## 4. Four Paths (4 Kịch bản)
 
